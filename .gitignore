@@ -3,7 +3,7 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
+debug
 
 # Binaries for programs and plugins
 *.exe
