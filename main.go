@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -14,6 +15,8 @@ func main() {
 
 	// start the HTTP server on port 8080
 	http.ListenAndServe(":8080", nil)
+
+	fmt.Println()
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
