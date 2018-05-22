@@ -3,16 +3,16 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 	"strings"
 )
 
 func main() {
-	// Register the handler function "hello" for the given pattern "/hello"
-	// in the DefaultServeMux
+	// Register the handler function for the given pattern in the DefaultServeMux
 	http.HandleFunc("/hello", hello)
-
 	http.HandleFunc("/weather/", getCityWeather)
 
+	// start the HTTP server on port 8080
 	http.ListenAndServe(":8080", nil)
 }
 
@@ -34,7 +34,8 @@ func getCityWeather(w http.ResponseWriter, r *http.Request) {
 }
 
 func query(city string) (weatherData, error) {
-	resp, err := http.Get("http://api.openweathermap.org/data/2.5/weather?APPID=e63d20327aa05f87ee434536ac8d4c66&q=" + city)
+	APIKey := os.Getenv("HELLO_API_KEY")
+	resp, err := http.Get("http://api.openweathermap.org/data/2.5/weather?APPID=" + APIKey + "&q=" + city)
 	if err != nil {
 		return weatherData{}, err
 	}
