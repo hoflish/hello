@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -14,6 +16,8 @@ func main() {
 	http.HandleFunc("/weather/", getCityWeather)
 
 	http.ListenAndServe(":8080", nil)
+
+	fmt.Println()
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +38,8 @@ func getCityWeather(w http.ResponseWriter, r *http.Request) {
 }
 
 func query(city string) (weatherData, error) {
-	resp, err := http.Get("http://api.openweathermap.org/data/2.5/weather?APPID=e63d20327aa05f87ee434536ac8d4c66&q=" + city)
+	APIKey := os.Getenv("HELLO_API_KEY")
+	resp, err := http.Get("http://api.openweathermap.org/data/2.5/weather?APPID=" + APIKey + "&q=" + city)
 	if err != nil {
 		return weatherData{}, err
 	}
